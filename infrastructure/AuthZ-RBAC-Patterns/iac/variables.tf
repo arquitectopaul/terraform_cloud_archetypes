@@ -1,7 +1,7 @@
 variable "domain_name" {
   type        = string
   description = "The domain name to use"
-  default     = "arqsoftdesignpatterns.click"
+  default     = "examensoluciondesignpatterns.click"
 }
 
 variable "eks_cluster_name" {

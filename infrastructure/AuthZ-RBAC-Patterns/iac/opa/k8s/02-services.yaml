@@ -27,7 +27,7 @@ metadata:
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: external
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
-    service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: project=Patrones-Desarrollo-e-Integracion
+    service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: project=Patrones_Microservicios
 spec:
   ports:
     - port: 8181

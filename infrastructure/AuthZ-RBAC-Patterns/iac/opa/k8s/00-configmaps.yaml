@@ -5,7 +5,7 @@ metadata:
   namespace: backend
 data:
   policy.rego: |
-    package pe.com.banbif.designpatterns.archetype.apirules
+    package pe.com.acme.designpatterns.archetype.apirules
 
     role_permissions := {
         "us-east-2_Uvoj5377K_AzureAD": [{"apiMethod": "GET", "apiPath": "/mydevresource1"}],

@@ -20,7 +20,7 @@ variable "compacted_project_name" {
 variable "extended_project_name" {
   type        = string
   description = "Nombre amplio del proyecto. No debe tener espacios y debe estar separado las palabras por guiones."
-  default     = "Patrones-Desarrollo-e-Integracion"
+  default     = "Patrones_Microservicios"
 }
 
 variable "serial_number" {
@@ -33,18 +33,18 @@ variable "info_tags" {
   type        = map(string)
   description = "Etiquetas con informacion general asociada al proyecto"
   default = {
-    business_unit    = "banbif"
-    cost_center_id   = "900700"
-    cost_center_name = "raul_diaz"
-    cost_center_tech = "miguel_casique"
-    managed_by       = "TI-EA2022-12568"
+    business_unit    = "acme"
+    cost_center_id   = "0"
+    cost_center_name = "pepito"
+    cost_center_tech = "juanperez"
+    managed_by       = "TERRAFORM"
   }
 }
 
 # Referencias a recursos existentes requeridos
 variable "website_root_domain" {
   description = "Hostname for this website."
-  default     = "arqsoftexamensolucion.click"
+  default     = "examensolucion.com"
 }
 
 # Codigos personalizados de tipos de recursos
