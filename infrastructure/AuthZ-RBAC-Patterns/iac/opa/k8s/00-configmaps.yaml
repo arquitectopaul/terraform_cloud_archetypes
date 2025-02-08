@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opa-policy
+  namespace: backend
+data:
+  policy.rego: |
+    package pe.com.banbif.designpatterns.archetype.apirules
+
+    role_permissions := {
+        "us-east-2_Uvoj5377K_AzureAD": [{"apiMethod": "GET", "apiPath": "/mydevresource1"}],
+        "Clientes": [{"apiMethod": "GET", "apiPath": "/mydevresource2"}]
+    }
+
+    default allow = false
+
+    allow {  
+        permissions := role_permissions[input.roleName]
+        permissions[_] == {"apiMethod": input.apiMethod, "apiPath": input.apiPath}
+    }

@@ -1,0 +1,38 @@
+############## Service - Cluster #########################
+# Servicio tipo cluster para ser consumido por otros Pods
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: opa-cluster-service
+  namespace: backend
+spec:
+  selector:
+    app: opa
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      port: 8181
+      targetPort: 8181
+---
+############## AWS Network Load Balancer #########################
+# Generar un AWS Network Load Balancer
+apiVersion: v1
+kind: Service
+metadata:
+  name: opa-lb
+  namespace: backend
+  labels:
+    app: opa
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: environment=dev,business_unit=banbif,cost_center_id=900700,cost_center_name=raul_diaz,cost_center_tech=miguel_casique,project=Patrones-Desarrollo-e-Integracion,managed_by=TI-EA2022-12498
+spec:
+  ports:
+    - port: 8181
+      targetPort: 8181
+      protocol: TCP
+  selector:
+    app: opa
+  type: LoadBalancer

@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opa
+  namespace: backend
+  labels:
+    app: opa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opa
+  template:
+    metadata:
+      labels:
+        app: opa
+      name: opa
+    spec:
+      containers:
+        - name: opa
+          image: openpolicyagent/opa:0.49.0
+          ports:
+            - name: http
+              containerPort: 8181
+          args:
+            - "run"
+            - "--ignore=.*" # exclude hidden dirs created by Kubernetes
+            - "--server"
+            - "--log-format=json-pretty"
+            - "--set=decision_logs.console=true"
+            - "/policies"
+          volumeMounts:
+            - readOnly: true
+              mountPath: /policies
+              name: opa-policy
+          livenessProbe:
+            httpGet:
+              scheme: HTTP # assumes OPA listens on localhost:8181
+              port: 8181
+            initialDelaySeconds: 5 # tune these periods for your environment
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health?bundle=true # Include bundle activation in readiness
+              scheme: HTTP
+              port: 8181
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      volumes:
+        - name: opa-policy
+          configMap:
+            name: opa-policy
